@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:cached_network_image/cached_network_image.dart';
 
 class FoodCard extends StatelessWidget {
@@ -10,7 +9,7 @@ class FoodCard extends StatelessWidget {
   String image;
 
   FoodCard(
-      {this.identify, this.title, this.description, this.price, String image});
+      {this.identify, this.title, this.description, this.price, this.image});
 
   @override
   Widget build(BuildContext context) {
@@ -45,23 +44,22 @@ class FoodCard extends StatelessWidget {
       height: 80,
       margin: EdgeInsets.only(right: 5),
       child: ClipOval(
-        child: Image.asset('assets/images/IconeFlutterFood.png'),
-        // Não funcionou
-        // child: CachedNetworkImage(
-        //   imageUrl: image != ''
-        //       ? image
-        //       : 'http://10.0.2.2/imgs/IconeFlutterFood.png',
-        //   placeholder: (context, url) => Container(
-        //     height: 80,
-        //     width: 80,
-        //     child: Center(
-        //       child: CircularProgressIndicator(),
-        //     ),
-        //   ),
-        //   errorWidget: (context, url, error) => Center(
-        //     child: Icon(Icons.error),
-        //   ),
-        // ),
+        //child: Image.asset('assets/images/IconeFlutterFood.png'),
+        child: CachedNetworkImage(
+          imageUrl: image != ''
+              ? image
+              : 'http://809232747593.ngrok.io/imgs/IconeFlutterFood.png',
+          placeholder: (context, url) => Container(
+            height: 80,
+            width: 80,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
+          errorWidget: (context, url, error) => Center(
+            child: Icon(Icons.error),
+          ),
+        ),
       ),
     );
   }
@@ -104,4 +102,5 @@ class FoodCard extends StatelessWidget {
       ),
     );
   }
+  //
 }

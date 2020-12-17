@@ -42,8 +42,9 @@ class Categories extends StatelessWidget {
         child: Text(
           category.name,
           style: TextStyle(
-              color: category.name == 'Doces' ? Colors.black : Colors.grey,
-              fontWeight: FontWeight.bold),
+            color: category.name == 'Doces' ? Colors.black : Colors.grey,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );

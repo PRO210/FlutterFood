@@ -4,7 +4,6 @@ class Category {
   String identify;
   String name;
   String description;
-  String contact;
 
   Category({this.identify, this.name, this.description});
   //Passando entre couchettes eles ficam obrigatorios e precisam respeitar até a ordem
@@ -20,9 +19,9 @@ class Category {
 
   toJson() {
     return jsonEncode({
-      'uuid': identify,
-      'name': name,
       'identify': identify,
+      'name': name,
+      'description': description,
     });
   }
 }

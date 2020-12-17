@@ -6,3 +6,29 @@ https://www.udemy.com/course/curso-flutter/
 
 Ocorreu uma exceção.
 HttpExceptionWithStatus (HttpException: Invalid statusCode: 404, uri = http://10.0.2.2/imgs/IconeFlutterFood.png)
+
+https://pub.dev/packages/curved_navigation_bar
+
+Pizza
+http://larafood/storage/tenants/14e500e2-05a5-45af-a603-05c2df3ea4d8/products/0PKXHRIIYnqgtw7D4P42TUODyw8nlbDv5UV2QtEJ.jpeg
+http://809232747593.ngrok.io/storage/tenants/14e500e2-05a5-45af-a603-05c2df3ea4d8/products/0PKXHRIIYnqgtw7D4P42TUODyw8nlbDv5UV2QtEJ.jpeg
+
+Humburguer
+storage/tenants/14e500e2-05a5-45af-a603-05c2df3ea4d8/products/WSU8RnnhDWnL5kplbtPxnSb05vxECcKnOMf9aqUY.jpeg
+http://809232747593.ngrok.io/storage/tenants/14e500e2-05a5-45af-a603-05c2df3ea4d8/products/WSU8RnnhDWnL5kplbtPxnSb05vxECcKnOMf9aqUY.jpeg
+
+Açaí
+storage/tenants/14e500e2-05a5-45af-a603-05c2df3ea4d8/products/rrmzNZnvxPJp1HdQ0avY9br4xo4zaEOGbWi2Ec6N.jpeg
+http://809232747593.ngrok.io/storage/tenants/14e500e2-05a5-45af-a603-05c2df3ea4d8/products/rrmzNZnvxPJp1HdQ0avY9br4xo4zaEOGbWi2Ec6N.jpeg
+
+ngrok
+ngrok http larafood 80 
+ngrok http -host-header=larafood 80 
+./ngrok http -hostname=larafood 80 (problema do plano free)
+
+http://ac8541dbf8c5.ngrok.io/imgs/IconeFlutterFood.png
+http://ac8541dbf8c5.ngrok.io/storage/tenants/14e500e2-05a5-45af-a603-05c2df3ea4d8/products/0PKXHRIIYnqgtw7D4P42TUODyw8nlbDv5UV2QtEJ.jpeg
+
+
+https://medium.com/@juniorzytkowski/laragon-ambiente-de-desenvolvimento-simplista-e-completo-402b0a110b26
+https://sam-ngu.medium.com/docker-laradock-ngrok-%EF%B8%8F-81ae4a224f08

@@ -7,7 +7,7 @@ class Food {
   String price;
   String image;
 
-  Food({this.identify, this.title, this.description, this.price, String image});
+  Food({this.identify, this.title, this.description, this.price, this.image});
   //Passando entre couchettes eles ficam obrigatorios e precisam respeitar até a ordem
   // Restaurant(this.uuid, this.title, this.image, this.contact);
 

@@ -33,23 +33,22 @@ class RestaurantCard extends StatelessWidget {
                     width: 80,
                     height: 80,
                     child: ClipOval(
-                      child: Image.asset('assets/images/IconeFlutterFood.png'),
+                      //child: Image.asset('assets/images/IconeFlutterFood.png'),
                       // Não funcionou
-                      // child: CachedNetworkImage(
-                      //   imageUrl: image != ''
-                      //       ? image
-                      //       : 'http://10.0.2.2/imgs/IconeFlutterFood.png',
-                      //   placeholder: (context, url) => Container(
-                      //     height: 80,
-                      //     width: 80,
-                      //     child: Center(
-                      //       child: CircularProgressIndicator(),
-                      //     ),
-                      //   ),
-                      //   errorWidget: (context, url, error) => Center(
-                      //     child: Icon(Icons.error),
-                      //   ),
-                      // ),
+                      child: CachedNetworkImage(
+                        imageUrl:
+                            'http://f14095962e4e.ngrok.io/imgs/IconeFlutterFood.png',
+                        placeholder: (context, url) => Container(
+                          height: 80,
+                          width: 80,
+                          child: Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
+                        errorWidget: (context, url, error) => Center(
+                          child: Icon(Icons.error),
+                        ),
+                      ),
                     ),
                   ),
                   VerticalDivider(color: Colors.black54),

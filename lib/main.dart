@@ -27,7 +27,7 @@ class FlutterFoodApp extends StatelessWidget {
         '/register': (context) => RegisterScreen(),
         '/restaurants': (context) => RestaurantsPage(),
         '/foods': (context) => FoodsScreen(),
-        '/cart': (context) => CartScreen()
+        '/cart': (context) => CartScreen(),
       },
     );
   }

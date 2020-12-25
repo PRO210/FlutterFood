@@ -74,7 +74,7 @@ class CartScreen extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 ShowImageCacheNetwork(
-                    'http://232c992a87c0.ngrok.io/imgs/IconeFlutterFood.png'),
+                    'http://84b8f9311705.ngrok.io/imgs/IconeFlutterFood.png'),
                 _showDetailItemCart(context),
               ],
             ),

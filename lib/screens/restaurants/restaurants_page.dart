@@ -13,6 +13,8 @@ class RestaurantsPage extends StatefulWidget {
 }
 
 class _RestaurantsPageState extends State<RestaurantsPage> {
+  //    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+
   List<Restaurant> _restaurants = [
     Restaurant(
       uuid: '32132165465',

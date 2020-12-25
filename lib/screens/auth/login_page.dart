@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+//import 'package:flutter/services.dart';
 import './widgets/heading_auth.dart';
 import './register_page.dart';
 
@@ -8,6 +9,8 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+
     _deviceWidth = MediaQuery.of(context).size.width;
     _deviceHeigth = MediaQuery.of(context).size.height;
     return Scaffold(

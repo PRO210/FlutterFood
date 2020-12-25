@@ -7,9 +7,16 @@ class FoodCard extends StatelessWidget {
   String description;
   String price;
   String image;
+  bool notShowIconCart;
 
-  FoodCard(
-      {this.identify, this.title, this.description, this.price, this.image});
+  FoodCard({
+    this.identify,
+    this.title,
+    this.description,
+    this.price,
+    this.image,
+    this.notShowIconCart,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +55,7 @@ class FoodCard extends StatelessWidget {
         child: CachedNetworkImage(
           imageUrl: image != ''
               ? image
-              : 'http://809232747593.ngrok.io/imgs/IconeFlutterFood.png',
+              : 'http://84b8f9311705.ngrok.io/imgs/IconeFlutterFood.png',
           placeholder: (context, url) => Container(
             height: 80,
             width: 80,
@@ -93,14 +100,16 @@ class FoodCard extends StatelessWidget {
   }
 
   Widget _buildButtonCart(context) {
-    return Container(
-      child: IconTheme(
-        data: IconThemeData(
-          color: Theme.of(context).primaryColor,
-        ),
-        child: Icon(Icons.shopping_cart),
-      ),
-    );
+    return notShowIconCart
+        ? Container()
+        : Container(
+            child: IconTheme(
+              data: IconThemeData(
+                color: Theme.of(context).primaryColor,
+              ),
+              child: Icon(Icons.shopping_cart),
+            ),
+          );
   }
   //
 }

@@ -29,21 +29,21 @@ class _FoodsScreenState extends State<FoodsScreen> {
     Food(
         identify: '01',
         image:
-            'http://809232747593.ngrok.io/storage/tenants/14e500e2-05a5-45af-a603-05c2df3ea4d8/products/WSU8RnnhDWnL5kplbtPxnSb05vxECcKnOMf9aqUY.jpeg',
+            'http://84b8f9311705.ngrok.io/storage/tenants/14e500e2-05a5-45af-a603-05c2df3ea4d8/products/WSU8RnnhDWnL5kplbtPxnSb05vxECcKnOMf9aqUY.jpeg',
         description: 'Apenas teste',
         price: '10.20',
         title: 'Humburguer'),
     Food(
         identify: '02',
         image:
-            'http://809232747593.ngrok.io/storage/tenants/14e500e2-05a5-45af-a603-05c2df3ea4d8/products/rrmzNZnvxPJp1HdQ0avY9br4xo4zaEOGbWi2Ec6N.jpeg',
+            'http://84b8f9311705.ngrok.io/storage/tenants/14e500e2-05a5-45af-a603-05c2df3ea4d8/products/rrmzNZnvxPJp1HdQ0avY9br4xo4zaEOGbWi2Ec6N.jpeg',
         description: 'Apenas teste 02',
         price: '10.20',
         title: 'Açaí'),
     Food(
         identify: '03',
         image:
-            'http://809232747593.ngrok.io/storage/tenants/14e500e2-05a5-45af-a603-05c2df3ea4d8/products/0PKXHRIIYnqgtw7D4P42TUODyw8nlbDv5UV2QtEJ.jpeg',
+            'http://84b8f9311705.ngrok.io/storage/tenants/14e500e2-05a5-45af-a603-05c2df3ea4d8/products/0PKXHRIIYnqgtw7D4P42TUODyw8nlbDv5UV2QtEJ.jpeg',
         description: 'Apenas teste',
         price: '10.20',
         title: 'Pizzas')
@@ -83,6 +83,7 @@ class _FoodsScreenState extends State<FoodsScreen> {
               image: food.image,
               price: food.price,
               title: food.title,
+              notShowIconCart: false,
             );
           }),
     );

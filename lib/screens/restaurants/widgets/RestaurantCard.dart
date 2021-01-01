@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import '../../../contants/api.dart';
+import '../../../models/Restaurant.dart';
+
+// import 'package:flutter_food/models/Restaurant.dart';
+// import 'package:flutter_food/contants/api.dart';
 
 class RestaurantCard extends StatelessWidget {
-  final String uuid;
-  final String name;
-  final String image;
-  final String contact;
-  const RestaurantCard({this.uuid, this.name, this.image, this.contact});
+  final Restaurant restaurant;
+
+  RestaurantCard({
+    this.restaurant,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print(name);
-        Navigator.pushNamed(context, '/foods');
+        print(restaurant.name);
+        Navigator.pushNamed(context, '/foods', arguments: restaurant);
       },
       child: Container(
         padding: EdgeInsets.only(top: 4, right: 1, left: 1, bottom: 0),
@@ -33,11 +38,13 @@ class RestaurantCard extends StatelessWidget {
                     width: 80,
                     height: 80,
                     child: ClipOval(
-                      //child: Image.asset('assets/images/IconeFlutterFood.png'),
-                      // Não funcionou
+                      //child: Image.asset('assets/images/IconeFlutterFood.png')"${API_URL_NGROK}imgs/IconeFlutterFood.png",
                       child: CachedNetworkImage(
-                        imageUrl:
-                            'http://232c992a87c0.ngrok.io/imgs/IconeFlutterFood.png',
+                        imageUrl: restaurant.image != ''
+                            ? restaurant.image.replaceAll(
+                                'larafood', "${API_URL_NGROK_NUMBERS}")
+                            : 'assets/images/IconeFlutterFood.png',
+                        // imageUrl: restaurant.image,
                         placeholder: (context, url) => Container(
                           height: 80,
                           width: 80,
@@ -54,9 +61,11 @@ class RestaurantCard extends StatelessWidget {
                   VerticalDivider(color: Colors.black54),
                   Expanded(
                     child: Text(
-                      name,
+                      restaurant.name,
                       style: TextStyle(
-                          color: Colors.black54, fontWeight: FontWeight.bold),
+                          color: Colors.black54,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
                     ),
                   ),
                 ],

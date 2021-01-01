@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../widgets/flutter_bottom_navigator.dart';
 import '../../widgets/show_image_cached_network.dart';
+import 'package:flutter_food/contants/api.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({Key key}) : super(key: key);
@@ -74,7 +75,7 @@ class CartScreen extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 ShowImageCacheNetwork(
-                    'http://84b8f9311705.ngrok.io/imgs/IconeFlutterFood.png'),
+                    '${API_URL_NGROK}imgs/IconeFlutterFood.png'),
                 _showDetailItemCart(context),
               ],
             ),

@@ -28,6 +28,7 @@ ngrok http -host-header=larafood 80
 foods_page.dart
 order_detail.dart
 cart_page.dart
+RestauranteCard.dart
 
 
 https://medium.com/@juniorzytkowski/laragon-ambiente-de-desenvolvimento-simplista-e-completo-402b0a110b26
@@ -37,3 +38,23 @@ https://pub.dev/packages/flutter_rating_bar/install
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 https://pub.dev/packages/dio
+https://pub.dev/packages/mobx
+
+flutter channel
+flutter channel stable
+flutter upgrade
+flutter packages pub run build_runner clean
+flutter packages pub run build_runner build
+flutter packages pub run build_runner watch
+
+
+06 - Tela do Restaurante - 02 - Criar Repository de Comida no Flutter
+
+
+ imageUrl: restaurant.image != ''
+    ? restaurant.image.replaceAll(
+        'larafood', "${API_URL_NGROK_NUMBERS}")
+            : 'assets/images/IconeFlutterFood.png',
+
+Rodar o flutter no smartphone direto
+https://medium.com/@marcoshenriqueh393/como-configurar-dispositivos-f%C3%ADsicos-no-flutter-b3acbe02e895

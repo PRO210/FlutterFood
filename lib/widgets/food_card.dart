@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_food/contants/api.dart';
 
 class FoodCard extends StatelessWidget {
   String identify;
@@ -53,9 +54,8 @@ class FoodCard extends StatelessWidget {
       child: ClipOval(
         //child: Image.asset('assets/images/IconeFlutterFood.png'),
         child: CachedNetworkImage(
-          imageUrl: image != ''
-              ? image
-              : 'http://84b8f9311705.ngrok.io/imgs/IconeFlutterFood.png',
+          imageUrl:
+              image != '' ? image : '${API_URL_NGROK}imgs/IconeFlutterFood.png',
           placeholder: (context, url) => Container(
             height: 80,
             width: 80,

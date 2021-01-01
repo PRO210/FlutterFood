@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_food/contants/api.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 // import 'package:flutter_food/models/Order.dart';
@@ -24,14 +25,14 @@ class OrderDetailScreen extends StatelessWidget {
       Food(
           identify: '01',
           image:
-              'http://84b8f9311705.ngrok.io/storage/tenants/14e500e2-05a5-45af-a603-05c2df3ea4d8/products/WSU8RnnhDWnL5kplbtPxnSb05vxECcKnOMf9aqUY.jpeg',
+              '${API_URL_NGROK}storage/tenants/14e500e2-05a5-45af-a603-05c2df3ea4d8/products/WSU8RnnhDWnL5kplbtPxnSb05vxECcKnOMf9aqUY.jpeg',
           description: 'Apenas teste',
           price: '10.20',
           title: 'Humburguer'),
       Food(
           identify: '02',
           image:
-              'http://84b8f9311705.ngrok.io/storage/tenants/14e500e2-05a5-45af-a603-05c2df3ea4d8/products/rrmzNZnvxPJp1HdQ0avY9br4xo4zaEOGbWi2Ec6N.jpeg',
+              '${API_URL_NGROK}storage/tenants/14e500e2-05a5-45af-a603-05c2df3ea4d8/products/rrmzNZnvxPJp1HdQ0avY9br4xo4zaEOGbWi2Ec6N.jpeg',
           description: 'Apenas teste 02',
           price: '10.20',
           title: 'Açaí'),

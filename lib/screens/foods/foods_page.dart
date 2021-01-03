@@ -7,6 +7,8 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 //import 'package:flutter_food/widgets/food_card.dart';
 // import 'package:flutter_food/models/Restaurant.dart';
 // import 'package:flutter_food/contants/api.dart';
+// import 'package:flutter_food/widgets/custon_circular_progress_indicator.dart';
+// import 'package:flutter_food/stores/categories.store.dart';
 
 import '../../contants/api.dart';
 import '../../models/Category.dart';
@@ -16,6 +18,8 @@ import './widgets/Categories.dart';
 import '../../widgets/food_card.dart';
 import '../../widgets/flutter_bottom_navigator.dart';
 import '../../stores/foods.store.dart';
+import '../../widgets/custon_circular_progress_indicator.dart';
+import '../../stores/categories.store.dart';
 
 class FoodsScreen extends StatefulWidget {
   FoodsScreen({Key key}) : super(key: key);
@@ -27,12 +31,13 @@ class FoodsScreen extends StatefulWidget {
 class _FoodsScreenState extends State<FoodsScreen> {
   Restaurant _restaurant;
   FoodStore storeFoods = new FoodStore();
+  CategoriesStore storeCategories = new CategoriesStore();
   //
-  List<Category> _categories = [
-    Category(name: 'Hamburguer', description: 'ssd', identify: '01'),
-    Category(name: 'Doces', description: 'ssd', identify: '02'),
-    Category(name: 'Pizzas', description: 'ssd', identify: '03'),
-  ];
+  // List<Category> _categories = [
+  //   Category(name: 'Hamburguer', description: 'ssd', identify: '01'),
+  //   Category(name: 'Doces', description: 'ssd', identify: '02'),
+  //   Category(name: 'Pizzas', description: 'ssd', identify: '03'),
+  // ];
   //
   @override
   void didChangeDependencies() {
@@ -40,6 +45,8 @@ class _FoodsScreenState extends State<FoodsScreen> {
     super.didChangeDependencies();
     RouteSettings settings = ModalRoute.of(context).settings;
     _restaurant = settings.arguments;
+
+    storeCategories.getCategories(_restaurant.uuid);
     storeFoods.getFoods(_restaurant.uuid);
   }
 
@@ -59,11 +66,29 @@ class _FoodsScreenState extends State<FoodsScreen> {
   Widget _buildScreen() {
     return Column(
       children: <Widget>[
-        Categories(_categories),
+        Observer(
+          builder: (context) {
+            return storeCategories.isLoading
+                ? CustomCircularProgressIndicator(
+                    textLabel: 'Carregando as Categorias ...')
+                : storeCategories.categories.length == 0
+                    ? Center(
+                        child: Text(
+                          'Nenhuma Categoria :) ',
+                          style: TextStyle(
+                              color: Colors.orangeAccent,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                        ),
+                      )
+                    : Categories(storeCategories.categories);
+          },
+        ),
         Observer(
           builder: (context) {
             return storeFoods.isLoading
-                ? CircularProgressIndicator()
+                ? CustomCircularProgressIndicator(
+                    textLabel: 'Carregando os produtos ...')
                 : storeFoods.foods.length == 0
                     ? Center(
                         child: Text(

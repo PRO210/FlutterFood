@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-import 'package:flutter_food/data/network/repositories/restaurant_repository.dart';
+import '../../widgets/custon_circular_progress_indicator.dart';
 import '../../models/Restaurant.dart';
 import './widgets/RestaurantCard.dart';
 import '../../widgets/flutter_bottom_navigator.dart';
@@ -8,6 +9,7 @@ import '../../data/network/repositories/restaurant_repository.dart';
 
 // import 'package:flutter_food/widgets/flutter_bottom_navigator.dart';
 // import 'package:flutter_food/data/network/dio_client.dart';
+// import 'package:flutter_food/widgets/custon_circular_progress_indicator.dart';
 
 class RestaurantsPage extends StatefulWidget {
   RestaurantsPage({Key key}) : super(key: key);
@@ -39,8 +41,10 @@ class _RestaurantsPageState extends State<RestaurantsPage> {
         centerTitle: true,
       ),
       backgroundColor: Theme.of(context).backgroundColor,
-      body:
-          isLoanding ? CircularProgressIndicator() : _builRestaurants(context),
+      body: isLoanding
+          ? CustomCircularProgressIndicator(
+              textLabel: 'Carregando os Restaurantes')
+          : _builRestaurants(context),
       bottomNavigationBar: FlutterFoodBottomNavigator(0),
     );
   }

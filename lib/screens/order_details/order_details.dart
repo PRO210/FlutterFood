@@ -125,11 +125,7 @@ class OrderDetailScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           final Food food = _order.foods[index];
           return FoodCard(
-            identify: food.identify,
-            description: food.description,
-            image: food.image,
-            price: food.price,
-            title: food.title,
+            food: food,
             notShowIconCart: true,
           );
         },

@@ -1,23 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_food/contants/api.dart';
+import 'package:flutter_food/stores/foods.store.dart';
+import '../models/Food.dart';
 
 class FoodCard extends StatelessWidget {
-  String identify;
-  String title;
-  String description;
-  String price;
-  String image;
   bool notShowIconCart;
+  Food food;
+  //FoodStore storeFoods = new FoodStore();
 
-  FoodCard({
-    this.identify,
-    this.title,
-    this.description,
-    this.price,
-    this.image,
-    this.notShowIconCart,
-  });
+  FoodCard({this.notShowIconCart = false, this.food});
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +47,9 @@ class FoodCard extends StatelessWidget {
       child: ClipOval(
         //child: Image.asset('assets/images/IconeFlutterFood.png'),
         child: CachedNetworkImage(
-          imageUrl:
-              image != '' ? image : '${API_URL_NGROK}imgs/IconeFlutterFood.png',
+          imageUrl: food.image != ''
+              ? food.image.replaceAll('larafood', '${API_URL_NGROK_NUMBERS}')
+              : Image.asset('assets/images/IconeFlutterFood.png'),
           placeholder: (context, url) => Container(
             height: 80,
             width: 80,
@@ -77,19 +71,19 @@ class FoodCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(title,
+          Text(food.title,
               style: TextStyle(
                   color: Colors.black54,
                   fontSize: 16,
                   fontWeight: FontWeight.bold)),
           Container(height: 5),
-          Text(description,
+          Text(food.description,
               style: TextStyle(
                   color: Colors.black38,
                   fontSize: 12,
                   fontWeight: FontWeight.normal)),
           Container(height: 5),
-          Text("R\$ $price",
+          Text("R\$ ${food.price}",
               style: TextStyle(
                   color: Colors.black38,
                   fontSize: 12,
@@ -100,6 +94,8 @@ class FoodCard extends StatelessWidget {
   }
 
   Widget _buildButtonCart(context) {
+    final storeFoods = Provider.of<FoodStore>(context);
+
     return notShowIconCart
         ? Container()
         : Container(
@@ -107,7 +103,15 @@ class FoodCard extends StatelessWidget {
               data: IconThemeData(
                 color: Theme.of(context).primaryColor,
               ),
-              child: Icon(Icons.shopping_cart),
+              child: storeFoods.inFoodCart(food)
+                  ? GestureDetector(
+                      child: Icon(Icons.remove_shopping_cart),
+                      onTap: () => storeFoods.removeFoodCart(food),
+                    )
+                  : GestureDetector(
+                      child: Icon(Icons.shopping_cart),
+                      onTap: () => storeFoods.addFoodCart(food),
+                    ),
             ),
           );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 // import 'package:flutter_food/stores/foods.store.dart';
@@ -30,8 +31,10 @@ class FoodsScreen extends StatefulWidget {
 
 class _FoodsScreenState extends State<FoodsScreen> {
   Restaurant _restaurant;
-  FoodStore storeFoods = new FoodStore();
-  CategoriesStore storeCategories = new CategoriesStore();
+  // FoodStore storeFoods = new FoodStore();
+  // CategoriesStore storeCategories = new CategoriesStore();
+  FoodStore storeFoods;
+  CategoriesStore storeCategories;
   //
   // List<Category> _categories = [
   //   Category(name: 'Hamburguer', description: 'ssd', identify: '01'),
@@ -43,6 +46,9 @@ class _FoodsScreenState extends State<FoodsScreen> {
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
+    storeFoods = Provider.of<FoodStore>(context);
+    storeCategories = Provider.of<CategoriesStore>(context);
+
     RouteSettings settings = ModalRoute.of(context).settings;
     _restaurant = settings.arguments;
 
@@ -116,16 +122,7 @@ class _FoodsScreenState extends State<FoodsScreen> {
           itemBuilder: (context, index) {
             final Food food = storeFoods.foods[index];
 
-            return FoodCard(
-              identify: food.identify,
-              description: food.description,
-              image:
-                  food.image.replaceAll('larafood', '${API_URL_NGROK_NUMBERS}'),
-              // ('${API_URL_NGROK}storage/tenants/14e500e2-05a5-45af-a603-05c2df3ea4d8/products/0PKXHRIIYnqgtw7D4P42TUODyw8nlbDv5UV2QtEJ.jpeg'),
-              price: food.price,
-              title: food.title,
-              notShowIconCart: false,
-            );
+            return FoodCard(food: food);
           }),
     );
   }

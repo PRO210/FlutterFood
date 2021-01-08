@@ -59,3 +59,27 @@ flutter packages pub run build_runner watch
 Rodar o flutter no smartphone direto
 https://medium.com/@marcoshenriqueh393/como-configurar-dispositivos-f%C3%ADsicos-no-flutter-b3acbe02e895
 https://www.youtube.com/watch?v=fyPH_J8l7mQ&t=346s
+https://elias.praciano.com/2016/11/como-ajustar-o-path-no-linux/
+
+export ANDROID_HOME="$HOME/Android/Sdk"
+export PATH="$PATH:$ANDROID_HOME/emulator"
+export PATH="$PATH:$ANDROID_HOME/platform-tools"
+export PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin"
+
+code .profile
+source .profile
+sdkmanager
+adb
+java --version
+
+adb kill-server
+adb start-server
+adb usb
+adb tcpip 5555
+adb connect 10.0.0.137:5555
+9c879742
+
+
+
+
+

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import '../stores/foods.store.dart';
 
 class FlutterFoodBottomNavigator extends StatelessWidget {
   int _active_item = 0;
-
+  //FoodStore storeFoods = new FoodStore();
   FlutterFoodBottomNavigator(this._active_item);
 
   @override
@@ -16,7 +19,7 @@ class FlutterFoodBottomNavigator extends StatelessWidget {
       items: <Widget>[
         Icon(Icons.home),
         Icon(Icons.list),
-        Icon(Icons.shopping_cart),
+        _iconCart(context),
         Icon(Icons.supervised_user_circle),
       ],
       onTap: (index) {
@@ -37,6 +40,33 @@ class FlutterFoodBottomNavigator extends StatelessWidget {
             Navigator.pushReplacementNamed(context, '/restaurants');
         }
       },
+    );
+  }
+
+  Widget _iconCart(context) {
+    final storeFoods = Provider.of<FoodStore>(context);
+
+    return Stack(
+      children: [
+        Icon(Icons.shopping_cart),
+        Positioned(
+          right: 0,
+          child: Container(
+            padding: EdgeInsets.all(1),
+            decoration: BoxDecoration(
+                color: Colors.green, borderRadius: BorderRadius.circular(6)),
+            constraints: BoxConstraints(
+              minHeight: 12,
+              minWidth: 12,
+            ),
+            child: Observer(builder: (_) {
+              return Text(storeFoods.cartItems.length.toString(),
+                  style: TextStyle(color: Colors.white),
+                  textAlign: TextAlign.center);
+            }),
+          ),
+        ),
+      ],
     );
   }
 }

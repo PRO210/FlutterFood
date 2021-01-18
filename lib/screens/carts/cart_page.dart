@@ -1,20 +1,32 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_food/widgets/show_image_cached_network.dart';
-// import 'package:flutter_food/widgets/flutter_bottom_navigator.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
 
 import '../../widgets/flutter_bottom_navigator.dart';
 import '../../widgets/show_image_cached_network.dart';
-import 'package:flutter_food/contants/api.dart';
+import '../../models/Food.dart';
+import '../../stores/foods.store.dart';
+import '../../stores/restaurant.store.dart';
+
+import '../../contants/api.dart';
 
 class CartScreen extends StatelessWidget {
-  const CartScreen({Key key}) : super(key: key);
+  FoodsStore _foodsStore;
+  RestaurantsStore _restaurantsStore;
 
   @override
   Widget build(BuildContext context) {
+    _foodsStore = Provider.of<FoodsStore>(context);
+    _restaurantsStore = Provider.of<RestaurantsStore>(context);
+
+    final String titlePage = _restaurantsStore.restaurant != null
+        ? "Carrinho - ${_restaurantsStore.restaurant.name}"
+        : 'Carrinho';
+
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        title: Text('Carrinho'),
+        title: Text(titlePage),
         centerTitle: true,
       ),
       body: _builContentCart(context),
@@ -29,38 +41,46 @@ class CartScreen extends StatelessWidget {
       children: <Widget>[
         _buildHeader(),
         _buildCartList(context),
+        _buildTextTotalCart(),
         _buildFormComment(context),
         _buttonCheckout(context),
-        _buildTextTotalCart()
       ],
     );
   }
 
   Widget _buildHeader() {
-    return Container(
-      alignment: Alignment.center,
-      margin: EdgeInsets.all(16),
-      child: Text(
-        'Total (6) de Items',
-        style: TextStyle(
-            color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
+    return Observer(
+      builder: (context) => Container(
+        alignment: Alignment.center,
+        margin: EdgeInsets.all(16),
+        child: Text(
+          "Total (${_foodsStore.cartItems.length}) de Items",
+          style: TextStyle(
+              color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
+        ),
       ),
     );
   }
 
   Widget _buildCartList(context) {
-    return Container(
-      //Possível problema MediaQuery
-      color: Colors.orangeAccent,
-      height: (MediaQuery.of(context).size.height - 330),
-      child: ListView.builder(
-        itemCount: 6,
-        itemBuilder: (context, index) => _buildCartItem(context),
+    return Observer(
+      builder: (context) => Container(
+        height: (MediaQuery.of(context).size.height - 330),
+        child: ListView.builder(
+          shrinkWrap: true,
+          primary: false,
+          itemCount: _foodsStore.cartItems.length,
+          itemBuilder: (context, index) {
+            final Map<String, dynamic> itemCart = _foodsStore.cartItems[index];
+            return _buildCartItem(itemCart, context);
+          },
+        ),
       ),
     );
   }
 
-  Widget _buildCartItem(context) {
+  Widget _buildCartItem(Map<String, dynamic> itemCart, context) {
+    final Food food = itemCart['product'];
     return Stack(
       children: <Widget>[
         Container(
@@ -74,26 +94,30 @@ class CartScreen extends StatelessWidget {
             margin: EdgeInsets.all(2),
             child: Row(
               children: <Widget>[
-                ShowImageCacheNetwork(
-                    '${API_URL_NGROK}imgs/IconeFlutterFood.png'),
-                _showDetailItemCart(context),
+                ShowImageCacheNetwork(food.image != ''
+                    ? food.image
+                    : '${API_URL_NGROK}imgs/IconeFlutterFood.png'),
+                _showDetailItemCart(food, itemCart, context),
               ],
             ),
           ),
         ),
         Align(
           alignment: Alignment.topRight,
-          child: Container(
-            height: 20,
-            width: 20,
-            margin: EdgeInsets.only(top: 10, right: 10),
-            decoration: BoxDecoration(
-                color: Colors.red,
-                borderRadius: BorderRadius.all(Radius.circular(100))),
-            child: Icon(
-              Icons.close,
-              size: 20,
-              color: Colors.white,
+          child: GestureDetector(
+            onTap: () => _foodsStore.removeFoodCart(food),
+            child: Container(
+              height: 20,
+              width: 20,
+              margin: EdgeInsets.only(top: 10, right: 10),
+              decoration: BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.all(Radius.circular(100))),
+              child: Icon(
+                Icons.close,
+                size: 20,
+                color: Colors.white,
+              ),
             ),
           ),
         ),
@@ -101,7 +125,8 @@ class CartScreen extends StatelessWidget {
     );
   }
 
-  Widget _showDetailItemCart(context) {
+  Widget _showDetailItemCart(
+      Food food, Map<String, dynamic> itemCart, context) {
     return Expanded(
       child: Container(
         padding: EdgeInsets.only(right: 4, left: 4),
@@ -109,7 +134,7 @@ class CartScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('Pizza',
+            Text(food.title,
                 maxLines: 2,
                 style: TextStyle(
                     fontSize: 14, color: Theme.of(context).primaryColor)),
@@ -117,22 +142,30 @@ class CartScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text("R\$399,00", style: TextStyle(color: Colors.green)),
+                  Text("R\$ ${food.price}",
+                      style: TextStyle(color: Colors.green)),
                   Container(
                     child: Row(
                       children: <Widget>[
-                        Icon(Icons.remove,
-                            size: 24, color: Colors.grey.shade700),
+                        GestureDetector(
+                          onTap: () => _foodsStore.decrementFoodCart(food),
+                          child: Icon(Icons.remove,
+                              size: 30, color: Colors.grey.shade700),
+                        ),
                         Container(
                           padding: EdgeInsets.only(
                               top: 4, bottom: 4, left: 12, right: 12),
                           color: Theme.of(context).primaryColor,
                           child: Text(
-                            '2',
+                            itemCart['qty'].toString(),
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
-                        Icon(Icons.add, size: 24, color: Colors.grey.shade700),
+                        GestureDetector(
+                          onTap: () => _foodsStore.incrementFoodCart(food),
+                          child: Icon(Icons.add,
+                              size: 30, color: Colors.grey.shade700),
+                        ),
                       ],
                     ),
                   ),
@@ -146,12 +179,14 @@ class CartScreen extends StatelessWidget {
   }
 
   Widget _buildTextTotalCart() {
-    return Container(
-      child: Text(
-        "Preço total : R\$ 499,00",
-        style: TextStyle(
-            color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
-        textAlign: TextAlign.center,
+    return Observer(
+      builder: (context) => Container(
+        child: Text(
+          "Preço total : R\$ ${_foodsStore.totalCart}",
+          style: TextStyle(
+              color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
+          textAlign: TextAlign.center,
+        ),
       ),
     );
   }

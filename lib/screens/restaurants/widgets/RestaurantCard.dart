@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import '../../../contants/api.dart';
+//import '../../../contants/api.dart';
 import '../../../models/Restaurant.dart';
-
-// import 'package:flutter_food/models/Restaurant.dart';
-// import 'package:flutter_food/contants/api.dart';
 
 class RestaurantCard extends StatelessWidget {
   final Restaurant restaurant;
@@ -41,10 +38,8 @@ class RestaurantCard extends StatelessWidget {
                       //child: Image.asset('assets/images/IconeFlutterFood.png')"${API_URL_NGROK}imgs/IconeFlutterFood.png",
                       child: CachedNetworkImage(
                         imageUrl: restaurant.image != ''
-                            ? restaurant.image.replaceAll(
-                                'larafood', "${API_URL_NGROK_NUMBERS}")
+                            ? restaurant.image
                             : 'assets/images/IconeFlutterFood.png',
-                        // imageUrl: restaurant.image,
                         placeholder: (context, url) => Container(
                           height: 80,
                           width: 80,

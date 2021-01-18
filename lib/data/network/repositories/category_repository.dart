@@ -1,9 +1,6 @@
 import '../dio_client.dart';
 import '../../../contants/api.dart';
 
-// import 'package:flutter_food/contants/api.dart';
-// import 'package:flutter_food/data/network/dio_client.dart';
-
 class CategoryRepository {
   var _httpClient;
 

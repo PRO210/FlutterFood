@@ -1,18 +1,16 @@
 import 'package:mobx/mobx.dart';
-
 import '../data/network/repositories/food_repository.dart';
+
 import '../models/Food.dart';
 
 part 'foods.store.g.dart';
-// import 'package:flutter_food/models/Food.dart';
-// import 'package:flutter_food/data/network/repositories/food_repository.dart';
 
-class FoodStore = _FoodStoreBase with _$FoodStore;
+class FoodsStore = _FoodsStoreBase with _$FoodsStore;
 
-abstract class _FoodStoreBase with Store {
+abstract class _FoodsStoreBase with Store {
   FoodRepository _repository;
 
-  _FoodStoreBase() {
+  _FoodsStoreBase() {
     _repository = new FoodRepository();
   }
 
@@ -20,7 +18,10 @@ abstract class _FoodStoreBase with Store {
   ObservableList<Food> foods = ObservableList<Food>();
 
   @observable
-  ObservableList<Food> cartItems = ObservableList<Food>();
+  List<Map<String, dynamic>> cartItems = [];
+
+  @observable
+  double totalCart = 0;
 
   @observable
   bool isLoading = false;
@@ -50,11 +51,17 @@ abstract class _FoodStoreBase with Store {
     foods.clear();
   }
 
+//
+//Recebe as comidas da api
+//
   @action
   Future getFoods(String tokenCompany) async {
     clearFoods();
+    clearCart();
     setLoading(true);
+
     final response = await _repository.getFoods(tokenCompany);
+
     setLoading(false);
 
     response.map((food) => addFood(Food.fromJson(food))).toList();
@@ -66,24 +73,73 @@ abstract class _FoodStoreBase with Store {
   @action
   void addFoodCart(Food food) {
     print('addFoodCart');
-    cartItems.add(food);
-    foods = foods;
+    if (inFoodCart(food)) {
+      return incrementFoodCart(food);
+    }
+
+    cartItems.add({'identify': food.identify, 'qty': 1, 'product': food});
+    calcTotalCart();
   }
 
   @action
   void removeFoodCart(Food food) {
     print('removeFoodCart');
-    cartItems.remove(food);
-    foods = foods;
+    //cartItems.remove(food);
+    cartItems.removeWhere((element) => element['identify'] == food.identify);
+
+    calcTotalCart();
   }
 
   @action
   void clearCart() {
     print('clearCart');
     cartItems.clear();
-    foods = foods;
+
+    calcTotalCart();
   }
 
   @action
-  bool inFoodCart(Food food) => cartItems.contains(food);
+  void incrementFoodCart(Food food) {
+    final int index =
+        cartItems.indexWhere((element) => element['identify'] == food.identify);
+    cartItems[index]['qty'] = cartItems[index]['qty'] + 1;
+    calcTotalCart();
+  }
+
+  @action
+  void decrementFoodCart(Food food) {
+    final int index =
+        cartItems.indexWhere((element) => element['identify'] == food.identify);
+    cartItems[index]['qty'] = cartItems[index]['qty'] - 1;
+    if (cartItems[index]['qty'] == 0) {
+      return removeFoodCart(food);
+    }
+    calcTotalCart();
+  }
+
+  @action
+  bool inFoodCart(Food food) {
+    final int index =
+        cartItems.indexWhere((element) => element['identify'] == food.identify);
+    return index != -1;
+  }
+
+  @action
+  double calcTotalCart() {
+    double total = 0;
+
+    cartItems
+        .map((element) =>
+            total += element['qty'] * double.parse(element['product'].price))
+        .toList();
+
+    totalCart = total;
+
+    foods = foods;
+    cartItems = cartItems;
+
+    return total;
+  }
+  //
+  //
 }

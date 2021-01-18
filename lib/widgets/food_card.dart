@@ -45,10 +45,9 @@ class FoodCard extends StatelessWidget {
       height: 80,
       margin: EdgeInsets.only(right: 5),
       child: ClipOval(
-        //child: Image.asset('assets/images/IconeFlutterFood.png'),
         child: CachedNetworkImage(
           imageUrl: food.image != ''
-              ? food.image.replaceAll('larafood', '${API_URL_NGROK_NUMBERS}')
+              ? food.image
               : Image.asset('assets/images/IconeFlutterFood.png'),
           placeholder: (context, url) => Container(
             height: 80,
@@ -94,7 +93,7 @@ class FoodCard extends StatelessWidget {
   }
 
   Widget _buildButtonCart(context) {
-    final storeFoods = Provider.of<FoodStore>(context);
+    final storeFoods = Provider.of<FoodsStore>(context);
 
     return notShowIconCart
         ? Container()
@@ -105,7 +104,10 @@ class FoodCard extends StatelessWidget {
               ),
               child: storeFoods.inFoodCart(food)
                   ? GestureDetector(
-                      child: Icon(Icons.remove_shopping_cart),
+                      child: Icon(
+                        Icons.remove_shopping_cart,
+                        color: Colors.red,
+                      ),
                       onTap: () => storeFoods.removeFoodCart(food),
                     )
                   : GestureDetector(

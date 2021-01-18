@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '../../widgets/custon_circular_progress_indicator.dart';
 import '../../models/Restaurant.dart';
 import './widgets/RestaurantCard.dart';
 import '../../widgets/flutter_bottom_navigator.dart';
 import '../../data/network/repositories/restaurant_repository.dart';
-
-// import 'package:flutter_food/widgets/flutter_bottom_navigator.dart';
-// import 'package:flutter_food/data/network/dio_client.dart';
-// import 'package:flutter_food/widgets/custon_circular_progress_indicator.dart';
 
 class RestaurantsPage extends StatefulWidget {
   RestaurantsPage({Key key}) : super(key: key);
@@ -21,9 +16,7 @@ class RestaurantsPage extends StatefulWidget {
 class _RestaurantsPageState extends State<RestaurantsPage> {
   //   SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
 
-  List<Restaurant> _restaurants = [
-    // Restaurant(uuid: '3213216546502',name: 'Espacializati 02',image: '', contact: 'contato@especializati02.com.br',),
-  ];
+  List<Restaurant> _restaurants = [];
   bool isLoanding = false;
 
   @override

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import './stores/restaurant.store.dart';
 import './stores/categories.store.dart';
 import './stores/foods.store.dart';
 import 'package:provider/provider.dart';
-// import 'package:flutter_food/contants/app_theme.dart';
-// import 'package:flutter_food/routes.dart';
+
 import './routes.dart';
 import './contants/app_theme.dart';
 
@@ -16,11 +16,14 @@ class FlutterFoodApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<FoodStore>(
-          create: (_) => FoodStore(),
+        Provider<FoodsStore>(
+          create: (_) => FoodsStore(),
         ),
         Provider<CategoriesStore>(
           create: (_) => CategoriesStore(),
+        ),
+        Provider<RestaurantsStore>(
+          create: (_) => RestaurantsStore(),
         )
       ],
       child: MaterialApp(

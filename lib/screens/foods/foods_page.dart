@@ -2,17 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-// import 'package:flutter_food/stores/foods.store.dart';
-//import 'package:flutter_food/models/Category.dart';
-//import 'package:flutter_food/screens/foods/widgets/Categories.dart';
-//import 'package:flutter_food/widgets/food_card.dart';
-// import 'package:flutter_food/models/Restaurant.dart';
-// import 'package:flutter_food/contants/api.dart';
-// import 'package:flutter_food/widgets/custon_circular_progress_indicator.dart';
-// import 'package:flutter_food/stores/categories.store.dart';
-
 import '../../contants/api.dart';
-import '../../models/Category.dart';
 import '../../models/Food.dart';
 import '../../models/Restaurant.dart';
 import './widgets/Categories.dart';
@@ -21,6 +11,7 @@ import '../../widgets/flutter_bottom_navigator.dart';
 import '../../stores/foods.store.dart';
 import '../../widgets/custon_circular_progress_indicator.dart';
 import '../../stores/categories.store.dart';
+import '../../stores/restaurant.store.dart';
 
 class FoodsScreen extends StatefulWidget {
   FoodsScreen({Key key}) : super(key: key);
@@ -31,27 +22,22 @@ class FoodsScreen extends StatefulWidget {
 
 class _FoodsScreenState extends State<FoodsScreen> {
   Restaurant _restaurant;
-  // FoodStore storeFoods = new FoodStore();
-  // CategoriesStore storeCategories = new CategoriesStore();
-  FoodStore storeFoods;
+  FoodsStore storeFoods;
   CategoriesStore storeCategories;
-  //
-  // List<Category> _categories = [
-  //   Category(name: 'Hamburguer', description: 'ssd', identify: '01'),
-  //   Category(name: 'Doces', description: 'ssd', identify: '02'),
-  //   Category(name: 'Pizzas', description: 'ssd', identify: '03'),
-  // ];
-  //
+  RestaurantsStore restaurantsStore;
+
   @override
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
-    storeFoods = Provider.of<FoodStore>(context);
+    storeFoods = Provider.of<FoodsStore>(context);
     storeCategories = Provider.of<CategoriesStore>(context);
+    restaurantsStore = Provider.of<RestaurantsStore>(context);
 
     RouteSettings settings = ModalRoute.of(context).settings;
     _restaurant = settings.arguments;
 
+    restaurantsStore.setRestaurant(_restaurant);
     storeCategories.getCategories(_restaurant.uuid);
     storeFoods.getFoods(_restaurant.uuid);
   }

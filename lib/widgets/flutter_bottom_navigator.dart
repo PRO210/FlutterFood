@@ -44,7 +44,7 @@ class FlutterFoodBottomNavigator extends StatelessWidget {
   }
 
   Widget _iconCart(context) {
-    final storeFoods = Provider.of<FoodStore>(context);
+    final storeFoods = Provider.of<FoodsStore>(context);
 
     return Stack(
       children: [

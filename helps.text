@@ -11,26 +11,28 @@ https://pub.dev/packages/curved_navigation_bar
 
 Pizza
 http://larafood/storage/tenants/14e500e2-05a5-45af-a603-05c2df3ea4d8/products/0PKXHRIIYnqgtw7D4P42TUODyw8nlbDv5UV2QtEJ.jpeg
-http://bd6df260697f.ngrok.io/storage/tenants/14e500e2-05a5-45af-a603-05c2df3ea4d8/products/0PKXHRIIYnqgtw7D4P42TUODyw8nlbDv5UV2QtEJ.jpeg
+http://larafood/storage/tenants/14e500e2-05a5-45af-a603-05c2df3ea4d8/products/0PKXHRIIYnqgtw7D4P42TUODyw8nlbDv5UV2QtEJ.jpeg
 
 Humburguer
-storage/tenants/14e500e2-05a5-45af-a603-05c2df3ea4d8/products/WSU8RnnhDWnL5kplbtPxnSb05vxECcKnOMf9aqUY.jpeg
-http://bd6df260697f.ngrok.io/storage/tenants/14e500e2-05a5-45af-a603-05c2df3ea4d8/products/WSU8RnnhDWnL5kplbtPxnSb05vxECcKnOMf9aqUY.jpeg
+http://larafood/storage/tenants/14e500e2-05a5-45af-a603-05c2df3ea4d8/products/WSU8RnnhDWnL5kplbtPxnSb05vxECcKnOMf9aqUY.jpeg
+http://1d1e9f12278d.ngrok.io/storage/tenants/14e500e2-05a5-45af-a603-05c2df3ea4d8/products/WSU8RnnhDWnL5kplbtPxnSb05vxECcKnOMf9aqUY.jpeg
 
 Açaí
-storage/tenants/14e500e2-05a5-45af-a603-05c2df3ea4d8/products/rrmzNZnvxPJp1HdQ0avY9br4xo4zaEOGbWi2Ec6N.jpeg
-http://bd6df260697f.ngrok.io/storage/tenants/14e500e2-05a5-45af-a603-05c2df3ea4d8/products/rrmzNZnvxPJp1HdQ0avY9br4xo4zaEOGbWi2Ec6N.jpeg
-
+http://larafood/storage/tenants/14e500e2-05a5-45af-a603-05c2df3ea4d8/products/rrmzNZnvxPJp1HdQ0avY9br4xo4zaEOGbWi2Ec6N.jpeg
+http://deaddd6376a6.ngrok.io/storage/tenants/14e500e2-05a5-45af-a603-05c2df3ea4d8/products/rrmzNZnvxPJp1HdQ0avY9br4xo4zaEOGbWi2Ec6N.jpeg
+//
+//
 ngrok
-ngrok http larafood 80 
-ngrok http -host-header=larafood 80 
+sudo /opt/lampp/manager-linux-x64.run
+cd /opt/lampp/htdocs/larafood/
+./ngrok http 80 
 ./ngrok http -hostname=larafood 80 (problema do plano free)
 foods_page.dart
 order_detail.dart
 cart_page.dart
 RestauranteCard.dart
-
-
+//
+//
 https://medium.com/@juniorzytkowski/laragon-ambiente-de-desenvolvimento-simplista-e-completo-402b0a110b26
 https://sam-ngu.medium.com/docker-laradock-ngrok-%EF%B8%8F-81ae4a224f08
 
@@ -80,6 +82,8 @@ adb connect 10.0.0.137:5555
 9c879742
 
 
+dartpad.dev
+//
 
 
 

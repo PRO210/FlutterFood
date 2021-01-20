@@ -52,15 +52,16 @@ abstract class _FoodsStoreBase with Store {
   }
 
 //
-//Recebe as comidas da api
+//Recebe as comidas do repository
 //
   @action
-  Future getFoods(String tokenCompany) async {
+  Future getFoods(String tokenCompany, {List<String> categoriesFilter}) async {
     clearFoods();
     clearCart();
     setLoading(true);
 
-    final response = await _repository.getFoods(tokenCompany);
+    final response = await _repository.getFoods(tokenCompany,
+        filterCategories: categoriesFilter);
 
     setLoading(false);
 
@@ -72,7 +73,7 @@ abstract class _FoodsStoreBase with Store {
 //
   @action
   void addFoodCart(Food food) {
-    print('addFoodCart');
+    // print('addFoodCart');
     if (inFoodCart(food)) {
       return incrementFoodCart(food);
     }
@@ -83,8 +84,6 @@ abstract class _FoodsStoreBase with Store {
 
   @action
   void removeFoodCart(Food food) {
-    print('removeFoodCart');
-    //cartItems.remove(food);
     cartItems.removeWhere((element) => element['identify'] == food.identify);
 
     calcTotalCart();
@@ -92,9 +91,7 @@ abstract class _FoodsStoreBase with Store {
 
   @action
   void clearCart() {
-    print('clearCart');
     cartItems.clear();
-
     calcTotalCart();
   }
 

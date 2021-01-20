@@ -25,6 +25,7 @@ http://deaddd6376a6.ngrok.io/storage/tenants/14e500e2-05a5-45af-a603-05c2df3ea4d
 ngrok
 sudo /opt/lampp/manager-linux-x64.run
 cd /opt/lampp/htdocs/larafood/
+cd /home/casa/Workspace/flutter/flutter_food/
 ./ngrok http 80 
 ./ngrok http -hostname=larafood 80 (problema do plano free)
 foods_page.dart
@@ -82,7 +83,6 @@ adb connect 10.0.0.137:5555
 9c879742
 
 
-dartpad.dev
 //
 
 

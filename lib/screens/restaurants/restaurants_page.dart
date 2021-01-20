@@ -15,6 +15,7 @@ class RestaurantsPage extends StatefulWidget {
 
 class _RestaurantsPageState extends State<RestaurantsPage> {
   //   SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+  //   SystemChrome.setEnabledSystemUIOverlays([]);
 
   List<Restaurant> _restaurants = [];
   bool isLoanding = false;

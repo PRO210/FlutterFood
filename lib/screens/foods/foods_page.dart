@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobx/mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -25,10 +26,10 @@ class _FoodsScreenState extends State<FoodsScreen> {
   FoodsStore storeFoods;
   CategoriesStore storeCategories;
   RestaurantsStore restaurantsStore;
+  ReactionDisposer disposer;
 
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     super.didChangeDependencies();
     storeFoods = Provider.of<FoodsStore>(context);
     storeCategories = Provider.of<CategoriesStore>(context);
@@ -37,12 +38,25 @@ class _FoodsScreenState extends State<FoodsScreen> {
     RouteSettings settings = ModalRoute.of(context).settings;
     _restaurant = settings.arguments;
 
+    disposer =
+        reaction((_) => storeCategories.filterChanged, (filterChanged) async {
+      if (!storeCategories.isLoading && !storeFoods.isLoading) {
+        await storeFoods.getFoods(_restaurant.uuid,
+            categoriesFilter: storeCategories.filtersCategory);
+      }
+    });
+
     restaurantsStore.setRestaurant(_restaurant);
     storeCategories.getCategories(_restaurant.uuid);
     storeFoods.getFoods(_restaurant.uuid);
   }
 
   @override
+  void dispose() {
+    disposer();
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

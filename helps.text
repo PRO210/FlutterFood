@@ -81,7 +81,20 @@ adb usb
 adb tcpip 5555
 adb connect 10.0.0.137:5555
 9c879742
+http://localhost/larafood/public/telescope/requests
+http://1a99f9405ccf.ngrok.io/larafood/public/telescope/requests
 
+API ROUTES:
+http://f62ba2bcb68f.ngrok.io/larafood/public/api/v1/tenants
+http://f62ba2bcb68f.ngrok.io/larafood/public/api/v1/tenants/7dd052fa-167c-439a-b081-c04199f7af62
+http://localhost/larafood/public/api/v1/tenants (Postman emcontra assim também)
+//
+http://f62ba2bcb68f.ngrok.io/larafood/public/api/v1/categories?token_company=7dd052fa-167c-439a-b081-c04199f7af62
+
+http://f62ba2bcb68f.ngrok.io/larafood/public/api/v1/orders
+http://f62ba2bcb68f.ngrok.io/larafood/public/v1/orders?token_company=7dd052fa-167c-439a-b081-c04199f7af62
+http://f62ba2bcb68f.ngrok.io/larafood/public/v1/tables?token_company=7dd052fa-167c-439a-b081-c04199f7af62
+http://f62ba2bcb68f.ngrok.io/larafood/public/v1/tables?token_company=7dd052fa-167c-439a-b081-c04199f7af62
 
 //
 

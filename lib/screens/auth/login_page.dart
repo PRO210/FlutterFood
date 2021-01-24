@@ -1,15 +1,25 @@
 import 'package:flutter/material.dart';
-//import 'package:flutter/services.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
+
 import './widgets/heading_auth.dart';
 import './register_page.dart';
+import '../../stores/auth.store.dart';
 
 class LoginScreen extends StatelessWidget {
   double _deviceWidth;
   double _deviceHeigth;
 
+  AuthStore _authStore;
+  TextEditingController _email = new TextEditingController();
+  TextEditingController _password = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    //SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+    _authStore = Provider.of<AuthStore>(context);
+
+    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
 
     _deviceWidth = MediaQuery.of(context).size.width;
     _deviceHeigth = MediaQuery.of(context).size.height;
@@ -17,7 +27,7 @@ class LoginScreen extends StatelessWidget {
       backgroundColor: Theme.of(context).backgroundColor,
       body: SingleChildScrollView(
         child: Center(
-          child: _loginPageUI(context),
+          child: Observer(builder: (context) => _loginPageUI(context)),
         ),
       ),
     );
@@ -79,12 +89,9 @@ class LoginScreen extends StatelessWidget {
     return Container(
       width: _deviceWidth,
       child: MaterialButton(
-        onPressed: () {
-          print('login');
-          Navigator.pushReplacementNamed(context, '/restaurants');
-        },
+        onPressed: () => _authStore.isLoading ? null : auth(),
         color: Theme.of(context).primaryColor,
-        child: Text('LOGIN'),
+        child: Text(_authStore.isLoading ? 'Autenticando...' : 'LOGIN'),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       ),
     );
@@ -92,6 +99,7 @@ class LoginScreen extends StatelessWidget {
 
   Widget _emailTextField(context) {
     return TextFormField(
+      controller: _email,
       autocorrect: false,
       autofocus: true,
       style: TextStyle(color: Theme.of(context).primaryColor),
@@ -111,6 +119,7 @@ class LoginScreen extends StatelessWidget {
 
   Widget _passowordTextField(context) {
     return TextFormField(
+      controller: _password,
       autocorrect: false,
       autofocus: true,
       obscureText: true,
@@ -136,5 +145,9 @@ class LoginScreen extends StatelessWidget {
       child: Text('Cadastrar-se',
           style: TextStyle(color: Theme.of(context).primaryColor)),
     );
+  }
+
+  Future auth() async {
+    await _authStore.auth(_email.text, _password.text);
   }
 }

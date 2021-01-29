@@ -89,7 +89,7 @@ class LoginScreen extends StatelessWidget {
     return Container(
       width: _deviceWidth,
       child: MaterialButton(
-        onPressed: () => _authStore.isLoading ? null : auth(),
+        onPressed: () => _authStore.isLoading ? null : auth(context),
         color: Theme.of(context).primaryColor,
         child: Text(_authStore.isLoading ? 'Autenticando...' : 'LOGIN'),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
@@ -147,7 +147,8 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Future auth() async {
+  Future auth(context) async {
     await _authStore.auth(_email.text, _password.text);
+    Navigator.pushNamed(context, '/restaurants');
   }
 }

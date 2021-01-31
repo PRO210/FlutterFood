@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
 import '../dio_client.dart';
 import '../interceptors/dio_interceptor_auth.dart';
+import '../../../models/User.dart';
 
 class AuthRepository {
   Dio _dio = dioInterceptorAuth();
@@ -44,9 +46,31 @@ class AuthRepository {
     }
   }
 
-  Future getMe() async {
-    final response = await DioClient().get('auth/me');
-    print(response);
+  Future<User> getMe() async {
+    final String token = await storage.read(key: 'token_sanctum');
+    if (token != null) {
+      _dio.options.headers['Authorization'] = 'Bearer ' + token;
+    }
+
+    try {
+      final response = await _dio.get('auth/me');
+      print(response.data);
+      return User.fromJson(response.data['data']);
+    } on DioError catch (e) {
+      print(e.toString());
+      print(e.response);
+      print(e.response.statusCode);
+      print(e.response.data);
+    }
+  }
+
+  Future logout() async {
+    await DioClient().post('auth/logout');
+    await deleteToken();
+  }
+
+  Future deleteToken() async {
+    await storage.delete(key: 'token_sanctum');
   }
 
   Future saveToken(String token) async {

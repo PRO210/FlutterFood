@@ -73,6 +73,7 @@ code .profile
 source .profile
 sdkmanager
 adb
+
 java --version
 
 adb kill-server

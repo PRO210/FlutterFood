@@ -1,5 +1,6 @@
 import 'package:mobx/mobx.dart';
 import '../data/network/repositories/auth_repository.dart';
+import '../models/User.dart';
 
 part 'auth.store.g.dart';
 
@@ -7,14 +8,15 @@ class AuthStore = _AuthStoreBase with _$AuthStore;
 
 abstract class _AuthStoreBase with Store {
   AuthRepository _authRepository = AuthRepository();
+
   @observable
-  bool isAuthenticaded = false;
+  User user;
 
   @observable
   bool isLoading = false;
 
   @action
-  void setAuthenticaded(bool value) => isAuthenticaded = value;
+  void setUser(User value) => user = value;
 
   @action
   void setLoading(bool value) => isLoading = value;
@@ -24,6 +26,9 @@ abstract class _AuthStoreBase with Store {
     setLoading(true);
 
     await _authRepository.auth(email, password);
+
+    await getMe();
+
     setLoading(false);
 
     return true;
@@ -40,5 +45,18 @@ abstract class _AuthStoreBase with Store {
     setLoading(false);
 
     return true;
+  }
+
+  @action
+  Future<bool> getMe() async {
+    User user = await _authRepository.getMe();
+    setUser(user);
+    return true;
+  }
+
+  @action
+  Future logout() async {
+    setLoading(true);
+    await _authRepository.logout().whenComplete(() => setLoading(false));
   }
 }

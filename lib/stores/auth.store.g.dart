@@ -9,18 +9,18 @@ part of 'auth.store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$AuthStore on _AuthStoreBase, Store {
-  final _$isAuthenticadedAtom = Atom(name: '_AuthStoreBase.isAuthenticaded');
+  final _$userAtom = Atom(name: '_AuthStoreBase.user');
 
   @override
-  bool get isAuthenticaded {
-    _$isAuthenticadedAtom.reportRead();
-    return super.isAuthenticaded;
+  User get user {
+    _$userAtom.reportRead();
+    return super.user;
   }
 
   @override
-  set isAuthenticaded(bool value) {
-    _$isAuthenticadedAtom.reportWrite(value, super.isAuthenticaded, () {
-      super.isAuthenticaded = value;
+  set user(User value) {
+    _$userAtom.reportWrite(value, super.user, () {
+      super.user = value;
     });
   }
 
@@ -54,15 +54,29 @@ mixin _$AuthStore on _AuthStoreBase, Store {
         .run(() => super.register(name, email, password));
   }
 
+  final _$getMeAsyncAction = AsyncAction('_AuthStoreBase.getMe');
+
+  @override
+  Future<bool> getMe() {
+    return _$getMeAsyncAction.run(() => super.getMe());
+  }
+
+  final _$logoutAsyncAction = AsyncAction('_AuthStoreBase.logout');
+
+  @override
+  Future<dynamic> logout() {
+    return _$logoutAsyncAction.run(() => super.logout());
+  }
+
   final _$_AuthStoreBaseActionController =
       ActionController(name: '_AuthStoreBase');
 
   @override
-  void setAuthenticaded(bool value) {
+  void setUser(User value) {
     final _$actionInfo = _$_AuthStoreBaseActionController.startAction(
-        name: '_AuthStoreBase.setAuthenticaded');
+        name: '_AuthStoreBase.setUser');
     try {
-      return super.setAuthenticaded(value);
+      return super.setUser(value);
     } finally {
       _$_AuthStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -82,7 +96,7 @@ mixin _$AuthStore on _AuthStoreBase, Store {
   @override
   String toString() {
     return '''
-isAuthenticaded: ${isAuthenticaded},
+user: ${user},
 isLoading: ${isLoading}
     ''';
   }

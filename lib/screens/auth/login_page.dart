@@ -138,7 +138,7 @@ class LoginScreen extends StatelessWidget {
 
   Widget _textRegister(context) {
     return GestureDetector(
-      onDoubleTap: () {
+      onTap: () {
         // Navigator.of(context).push(MaterialPageRoute(builder: (context) => RegisterScreen()));
         Navigator.pushNamed(context, '/register');
       },

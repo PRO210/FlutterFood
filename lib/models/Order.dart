@@ -32,7 +32,7 @@ class Order {
       date: jsonData['date'],
       status: jsonData['status'],
       table: jsonData['table'],
-      total: double.parse(jsonData['total']),
+      total: double.parse(jsonData['total'].toString()),
       comment: jsonData['comment'],
       foods: jsonData['foods'],
       evaluation: jsonData['evaluation'],

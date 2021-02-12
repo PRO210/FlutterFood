@@ -12,7 +12,7 @@ class Evaluation {
   factory Evaluation.fromJson(jsonData) {
     return Evaluation(
         nameUser: jsonData['nameUser'],
-        stars: jsonData['stars'],
+        stars: double.parse(jsonData['stars'].toString()),
         comment: jsonData['comment']);
   }
 

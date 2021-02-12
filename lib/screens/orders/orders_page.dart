@@ -1,35 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
 
-// import 'package:flutter_food/models/Order.dart';
-// import 'package:flutter_food/widgets/flutter_bottom_navigator.dart';
 import '../../widgets/flutter_bottom_navigator.dart';
+import '../../widgets/custon_circular_progress_indicator.dart';
 import '../../models/Order.dart';
+import '../../stores/orders.store.dart';
 
 class OrdersScreen extends StatelessWidget {
-  List<Order> _orders = [
-    new Order(date: '21/12/2020', identify: 'sdfsf65461'),
-    new Order(date: '22/12/2020', identify: 'sdfsf65462'),
-    new Order(date: '23/12/2020', identify: 'sdfsf65463'),
-    new Order(date: '24/12/2020', identify: 'sdfsf65464'),
-    new Order(date: '25/12/2020', identify: 'sdfsf65465'),
-    new Order(date: '26/12/2020', identify: 'sdfsf65466'),
-    new Order(date: '21/12/2020', identify: 'sdfsf65461'),
-    new Order(date: '22/12/2020', identify: 'sdfsf65462'),
-    new Order(date: '23/12/2020', identify: 'sdfsf65463'),
-    new Order(date: '24/12/2020', identify: 'sdfsf65464'),
-    new Order(date: '25/12/2020', identify: 'sdfsf65465'),
-    new Order(date: '26/12/2020', identify: 'sdfsf65466'),
-  ];
+  OrdersStore _ordersStore;
 
   @override
   Widget build(BuildContext context) {
+    _ordersStore = Provider.of<OrdersStore>(context);
+    _ordersStore.getMyOrders();
+
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      appBar: AppBar(
-        title: Text('Meus Pedidos'),
-        centerTitle: true,
+      appBar: AppBar(title: Text('Meus Pedidos'), centerTitle: true),
+      body: Observer(
+        builder: (context) => _builOrderScreen(context),
       ),
-      body: _builOrderScreen(context),
       bottomNavigationBar: FlutterFoodBottomNavigator(1),
     );
   }
@@ -38,7 +29,10 @@ class OrdersScreen extends StatelessWidget {
     return Column(
       children: <Widget>[
         _buildHeader(),
-        _buildOrdersList(),
+        _ordersStore.isLoading
+            ? CustomCircularProgressIndicator(
+                textLabel: 'Carregando os Pedidos . . .')
+            : _buildOrdersList(),
       ],
     );
   }
@@ -59,9 +53,9 @@ class OrdersScreen extends StatelessWidget {
     return Expanded(
       child: ListView.builder(
         //shrinkWrap: true,
-        itemCount: _orders.length,
+        itemCount: _ordersStore.orders.length,
         itemBuilder: (context, index) {
-          final Order order = _orders[index];
+          final Order order = _ordersStore.orders[index];
           return _buildItemOrder(order, context);
         },
       ),

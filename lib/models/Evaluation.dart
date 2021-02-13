@@ -1,17 +1,19 @@
 import 'dart:convert';
 
+import './User.dart';
+
 class Evaluation {
-  String nameUser;
+  User user;
   double stars;
   String comment;
 
-  Evaluation({this.nameUser, this.stars, this.comment});
+  Evaluation({this.user, this.stars, this.comment});
   //Passando entre couchettes eles ficam obrigatorios e precisam respeitar até a ordem
   // Restaurant(this.uuid, this.stars, this.total, this.contact);
 
   factory Evaluation.fromJson(jsonData) {
     return Evaluation(
-        nameUser: jsonData['nameUser'],
+        user: User.fromJson(jsonData['client']),
         stars: double.parse(jsonData['stars'].toString()),
         comment: jsonData['comment']);
   }
@@ -19,7 +21,7 @@ class Evaluation {
   toJson() {
     return jsonEncode({
       'stars': stars,
-      'nameUser': nameUser,
+      'user': user,
       'comment': comment,
     });
   }

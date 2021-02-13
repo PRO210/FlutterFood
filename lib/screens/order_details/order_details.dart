@@ -2,11 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_food/contants/api.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-// import 'package:flutter_food/models/Order.dart';
-// import 'package:flutter_food/models/Food.dart';
-// import 'package:flutter_food/widgets/food_card.dart';
-// import 'package:flutter_food/models/Evaluation.dart';
-
 import '../../widgets/flutter_bottom_navigator.dart';
 import '../../models/Order.dart';
 import '../../models/Food.dart';
@@ -14,43 +9,13 @@ import '../../widgets/food_card.dart';
 import '../../models/Evaluation.dart';
 
 class OrderDetailScreen extends StatelessWidget {
-  Order _order = Order(
-    identify: 'dsdfsdf46540',
-    date: '22/12/2021',
-    status: 'open',
-    table: 'Mesa kk',
-    total: (90).toDouble(),
-    comment: 'coemdsdfsd',
-    foods: [
-      Food(
-          identify: '01',
-          image: '',
-          description: 'Apenas teste',
-          price: '10.20',
-          title: 'Humburguer'),
-      Food(
-          identify: '02',
-          image: '',
-          description: 'Apenas teste 02',
-          price: '10.20',
-          title: 'Açaí'),
-    ],
-    evaluation: [
-      // Evaluation(
-      //   comment: 'Pedido muito bom ',
-      //   nameUser: 'André',
-      //   stars: 4,
-      // ),
-      // Evaluation(
-      //   comment: 'Pedido muito bom  02',
-      //   nameUser: 'André 02',
-      //   stars: 5,
-      // ),
-    ],
-  );
+  Order _order;
 
   @override
   Widget build(BuildContext context) {
+    RouteSettings settings = ModalRoute.of(context).settings;
+    _order = settings.arguments;
+
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
@@ -75,8 +40,9 @@ class OrderDetailScreen extends StatelessWidget {
           _makeTextOrder('Data', _order.date),
           _makeTextOrder('Status', _order.status),
           _makeTextOrder('Total', _order.total.toString()),
-          _makeTextOrder('Mesa', _order.table),
-          _makeTextOrder('Comentário', _order.comment),
+          _order.comment != null
+              ? _makeTextOrder('Comentário', _order.comment)
+              : Container(height: 10),
           Container(height: 30),
           Text(
             'Comidas:',
@@ -132,13 +98,13 @@ class OrderDetailScreen extends StatelessWidget {
   }
 
   Widget _buildEvaluationsOrder(context) {
-    return _order.evaluation.length > 0
+    return _order.evaluations.length > 0
         ? Container(
             child: ListView.builder(
               shrinkWrap: true,
-              itemCount: _order.evaluation.length,
+              itemCount: _order.evaluations.length,
               itemBuilder: (context, index) {
-                final Evaluation evaluation = _order.evaluation[index];
+                final Evaluation evaluation = _order.evaluations[index];
                 return _buildEvaluationItem(evaluation, context);
               },
             ),
@@ -148,7 +114,11 @@ class OrderDetailScreen extends StatelessWidget {
             margin: EdgeInsets.only(top: 10),
             child: RaisedButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/evaluation-order');
+                Navigator.pushNamed(
+                  context,
+                  '/evaluation-order',
+                  arguments: _order.identify,
+                );
               },
               color: Colors.orange,
               elevation: 2.5,
@@ -188,7 +158,7 @@ class OrderDetailScreen extends StatelessWidget {
             Row(
               children: <Widget>[
                 Text(
-                  "${evaluation.nameUser} - ",
+                  "${evaluation.user.name} - ",
                   style: TextStyle(
                       color: Colors.black, fontWeight: FontWeight.bold),
                 ),

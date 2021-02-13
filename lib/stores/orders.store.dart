@@ -1,13 +1,16 @@
+import 'package:mobx/mobx.dart';
+
 import '../data/network/repositories/order_repository.dart';
+import '../data/network/repositories/evaluation_repository.dart';
 import '../models/Order.dart';
 
-import 'package:mobx/mobx.dart';
 part 'orders.store.g.dart';
 
 class OrdersStore = _OrdersStoreBase with _$OrdersStore;
 
 abstract class _OrdersStoreBase with Store {
   OrderRepository _orderRepository = OrderRepository();
+  EvaluationRepository _evaluationRepository = EvaluationRepository();
 
   @observable
   bool insMakingOrder = false;
@@ -45,6 +48,17 @@ abstract class _OrdersStoreBase with Store {
     final response = await _orderRepository.getMyOrders();
 
     response.map((order) => add(Order.fromJson(order))).toList();
+
+    isLoading = false;
+  }
+
+  @action
+  Future evaluationOrder(String orderIdentify, int stars,
+      {String comment}) async {
+    isLoading = true;
+
+    await _evaluationRepository.evaluationOrder(orderIdentify, stars,
+        comment: comment);
 
     isLoading = false;
   }

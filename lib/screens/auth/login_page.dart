@@ -12,6 +12,7 @@ class LoginScreen extends StatelessWidget {
   double _deviceHeigth;
 
   AuthStore _authStore;
+
   TextEditingController _email = new TextEditingController();
   TextEditingController _password = new TextEditingController();
 
@@ -27,7 +28,9 @@ class LoginScreen extends StatelessWidget {
       backgroundColor: Theme.of(context).backgroundColor,
       body: SingleChildScrollView(
         child: Center(
-          child: Observer(builder: (context) => _loginPageUI(context)),
+          child: Observer(
+            builder: (context) => _loginPageUI(context),
+          ),
         ),
       ),
     );

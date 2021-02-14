@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter_food/contants/api.dart';
 import 'package:flutter_food/stores/foods.store.dart';
 import '../models/Food.dart';
 

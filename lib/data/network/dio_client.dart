@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-// import 'package:flutter_food/data/network/interceptors/dio_interceptor.dart';
 import './interceptors/dio_interceptor.dart';
 
 class DioClient {
@@ -27,10 +26,10 @@ class DioClient {
     try {
       final Response response = await _dio.post(url,
           data: formData, queryParameters: queryParameters);
-      // print(response);
+       print(response);
       return response;
     } catch (e) {
-      //  print(e.toString());
+      print(e.toString());
       throw e;
     }
   }

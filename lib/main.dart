@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import './stores/auth.store.dart';
-import './stores/orders.store.dart';
-import './stores/restaurant.store.dart';
-import './stores/categories.store.dart';
-import './stores/foods.store.dart';
 import 'package:provider/provider.dart';
-
-import './routes.dart';
 import './contants/app_theme.dart';
+import './routes.dart';
+
+import './stores/categories.store.dart';
+import './stores/restaurant.store.dart';
+import './stores/foods.store.dart';
+import './stores/orders.store.dart';
+import './stores/auth.store.dart';
 
 void main() => runApp(FlutterFoodApp());
 

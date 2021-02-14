@@ -38,11 +38,13 @@ https://medium.com/@juniorzytkowski/laragon-ambiente-de-desenvolvimento-simplist
 https://sam-ngu.medium.com/docker-laradock-ngrok-%EF%B8%8F-81ae4a224f08
 
 https://pub.dev/packages/flutter_rating_bar/install
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-
 https://pub.dev/packages/dio
 https://pub.dev/packages/mobx
 https://pub.dev/packages/device_info
+https://pub.dev/packages/fluttertoast
+https://pub.dev/packages/flutter_secure_storage
+
+https://dartpad.dev/dart
 
 flutter channel
 flutter channel stable
@@ -110,6 +112,4 @@ http://88add0913a9e.ngrok.io/auth/token
 }
 "token":1|4DWhOJTjZW78weEHjHHjuMocw4LGRaWeMkzRY2pYZAnRXAJ05ASRD51MqlD5rWeBVkiXZhjMO8MO7gEm
 //
-https://pub.dev/packages/flutter_secure_storage
-
 

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:device_info/device_info.dart';
+import '../Exceptions/api_exception.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../dio_client.dart';
@@ -28,10 +29,8 @@ class AuthRepository {
 
       return response;
     } on DioError catch (e) {
-      print(e.toString());
-      print(e.response);
-      print(e.response.statusCode);
-      print(e.response.data);
+      Future.error({});
+      ApiException(e.response);
     }
   }
 
@@ -44,10 +43,8 @@ class AuthRepository {
 
       return response;
     } on DioError catch (e) {
-      print(e.toString());
-      print(e.response);
-      print(e.response.statusCode);
-      print(e.response.data);
+      Future.error({});
+      ApiException(e.response);
     }
   }
 
@@ -62,11 +59,8 @@ class AuthRepository {
       print(response.data);
       return User.fromJson(response.data['data']);
     } on DioError catch (e) {
-      return Future.error({});
-      // print(e.toString());
-      // print(e.response);
-      // print(e.response.statusCode);
-      // print(e.response.data);
+      Future.error({});
+      ApiException(e.response);
     }
   }
 

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import './Exceptions/api_exception.dart';
 import './interceptors/dio_interceptor.dart';
 
 class DioClient {
@@ -16,8 +17,11 @@ class DioClient {
       // print(response);
       return response;
     } catch (e) {
+      Future.error({});
+      ApiException(e.response);
+
       //  print(e.toString());
-      throw e;
+      //throw e;
     }
   }
 
@@ -26,11 +30,13 @@ class DioClient {
     try {
       final Response response = await _dio.post(url,
           data: formData, queryParameters: queryParameters);
-       print(response);
+      //print(response);
       return response;
     } catch (e) {
-      print(e.toString());
-      throw e;
+      Future.error({});
+      ApiException(e.response);
+      // print(e.toString());
+      //throw e;
     }
   }
 }

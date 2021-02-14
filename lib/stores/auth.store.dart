@@ -32,16 +32,13 @@ abstract class _AuthStoreBase with Store {
   }
 
   @action
-  Future<bool> register(String name, String email, String password) async {
+  Future register(String name, String email, String password) async {
     setLoading(true);
 
-    await _authRepository.register(name, email, password);
-
-    await auth(email, password);
-
-    setLoading(false);
-
-    return true;
+    return await _authRepository
+        .register(name, email, password)
+        .then((value) async => await auth(email, password))
+        .whenComplete(() => setLoading(false));
   }
 
   @action
